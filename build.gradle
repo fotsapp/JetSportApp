@@ -1,0 +1,41 @@
+import com.fots.jetsport.buildsrc.Libs
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath Libs.androidGradlePlugin
+        classpath Libs.Kotlin.gradlePlugin
+        classpath Libs.Hilt.gradlePlugin
+    }
+}
+
+//plugins{
+//    id("io.gitlab.arturbosch.detekt").version("1.16.0")
+//}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+//task detektDeezer(type: io.gitlab.arturbosch.detekt.Detekt){
+//    description = "Run on Deezer Detekt"
+//    buildUponDefaultConfig = true
+//    autoCorrect = true
+//    parallel = true
+//    setSource(files(projectDir))
+//    config.setFrom(files("$rootDir/detekt/config.yml"))
+//    include("**/*.kt")
+//    include("**/*.kts")
+//    exclude("**/build/**")
+//    exclude("**/buildSrc/**")
+//    exclude("**/test/**/*.kt")
+//    reports {
+//        xml.enabled = false
+//        html.enabled = false
+//        txt.enabled = false
+//    }
+//}

@@ -1,0 +1,120 @@
+import com.fots.jetsport.buildsrc.AppInfo
+import com.fots.jetsport.buildsrc.Libs
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+
+android {
+    compileSdkVersion AppInfo.compileVersion
+
+    defaultConfig {
+        applicationId AppInfo.applicationId
+        minSdkVersion AppInfo.minSdkVersion
+        targetSdkVersion AppInfo.targetSdkVersion
+        versionCode AppInfo.versionCode
+        versionName AppInfo.versionName
+
+        testInstrumentationRunner AppInfo.testInstrumentationRunner
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile(AppInfo.proguard_txt), AppInfo.proguard_rules
+            buildConfigField("String", "DEEZER_URL", "\"${AppInfo.baseUrl}\"")
+            buildConfigField("String", "DEEZER_DATABASE_NAME", "\"${AppInfo.databaseName}\"")
+        }
+        debug {
+            buildConfigField("String", "DEEZER_URL", "\"${AppInfo.baseUrl}\"")
+            buildConfigField("String", "DEEZER_DATABASE_NAME", "\"${AppInfo.databaseName}\"")
+        }
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    buildFeatures {
+        compose true
+
+        // Disable unused AGP features
+        buildConfig true
+        aidl false
+        renderScript false
+        resValues false
+        shaders false
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion Libs.AndroidX.Compose.version
+    }
+
+    packagingOptions {
+        // Multiple dependency bring these files in. Exclude them to enable
+        // our test APK to build (has no effect on our AARs)
+        excludes += "/META-INF/AL2.0"
+        excludes += "/META-INF/LGPL2.1"
+    }
+}
+
+dependencies {
+    implementation Libs.Kotlin.stdlib
+    implementation Libs.AndroidX.ktx
+    implementation Libs.AndroidX.material
+    implementation Libs.AndroidX.appcompat
+    implementation Libs.Kotlin.Coroutines.android
+
+    implementation Libs.Accompanist.coil
+    implementation Libs.AndroidX.Activity.activityCompose
+    implementation Libs.AndroidX.Compose.runtime
+    implementation Libs.AndroidX.Compose.runtimeLivedata
+    implementation Libs.AndroidX.Compose.foundation
+    implementation Libs.AndroidX.Compose.ui
+    implementation Libs.AndroidX.Compose.material
+    implementation Libs.AndroidX.Compose.layout
+    implementation Libs.AndroidX.Compose.animation
+    implementation Libs.AndroidX.Compose.tooling
+    implementation Libs.AndroidX.Compose.navigation
+    implementation Libs.AndroidX.Lifecycle.viewModelCompose
+
+    implementation Libs.Network.retrofit
+    implementation Libs.Network.moshi
+    implementation Libs.Network.moshi_kotlin
+    implementation Libs.Network.retrofit_converter
+    implementation Libs.Network.okhttp
+
+    implementation Libs.AndroidX.Lifecycle.viewModelKtx
+    implementation Libs.Hilt.android
+    implementation Libs.Hilt.viewmodel
+    kapt Libs.Hilt.android_compiler
+    kapt Libs.Hilt.compiler
+
+    implementation Libs.Exoplayer.exoplayer_core
+    implementation Libs.Exoplayer.exoplayer_dash
+    implementation Libs.Exoplayer.exoplayer_ui
+
+    implementation(Libs.Local.room)
+    implementation(Libs.Local.room_ktx)
+    kapt(Libs.Local.room_compiler)
+    testImplementation(Libs.Local.room_testing)
+
+    implementation Libs.Timber.android
+
+    // FIXME: only needed for Compose alpha12
+    androidTestImplementation Libs.AndroidX.Activity.activityCompose
+
+    androidTestImplementation Libs.JUnit.junit
+    androidTestImplementation Libs.AndroidX.Test.runner
+    androidTestImplementation Libs.AndroidX.Test.espressoCore
+    androidTestImplementation Libs.AndroidX.Test.rules
+    androidTestImplementation Libs.AndroidX.navigation_runtime
+    androidTestImplementation Libs.AndroidX.Test.Ext.junit
+    androidTestImplementation Libs.Kotlin.Coroutines.test
+    androidTestImplementation Libs.AndroidX.Compose.uiTest
+    androidTestImplementation Libs.Hilt.android
+    androidTestImplementation Libs.Hilt.testing
+    kaptAndroidTest Libs.Hilt.compiler
+
+}
