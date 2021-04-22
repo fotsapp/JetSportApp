@@ -20,15 +20,23 @@ android {
     }
 
     buildTypes {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        def base_url = properties.getProperty('rapid_base_url')
+        def api_key = properties.getProperty('rapid_api_key')
+        def database_name = properties.getProperty('database_name')
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile(AppInfo.proguard_txt), AppInfo.proguard_rules
-            buildConfigField("String", "DEEZER_URL", "\"${AppInfo.baseUrl}\"")
-            buildConfigField("String", "DEEZER_DATABASE_NAME", "\"${AppInfo.databaseName}\"")
+            buildConfigField "String", "BaseUrl", base_url
+            buildConfigField "String", "ApiKey", api_key
+            buildConfigField "String", "DatabaseName", database_name
         }
         debug {
-            buildConfigField("String", "DEEZER_URL", "\"${AppInfo.baseUrl}\"")
-            buildConfigField("String", "DEEZER_DATABASE_NAME", "\"${AppInfo.databaseName}\"")
+            buildConfigField "String", "BaseUrl", base_url
+            buildConfigField "String", "ApiKey", api_key
+            buildConfigField "String", "DatabaseName", database_name
         }
     }
 

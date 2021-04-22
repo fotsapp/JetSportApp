@@ -16,8 +16,6 @@ object AppInfo {
     const val proguard_txt = "proguard-android-optimize.txt"
     const val proguard_rules = "proguard-rules.pro"
     const val jvmTarget = "1.8"
-    const val baseUrl = "https://api.deezer.com/"
-    const val databaseName = "deezerDB"
     const val compose_version = "1.0.0-beta01"
     const val kotlinCompilerVersion = "1.4.30"
 }
