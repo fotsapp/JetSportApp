@@ -21,7 +21,7 @@ object AppInfo {
 }
 
 object Libs {
-    const val androidGradlePlugin = "com.android.tools.build:gradle:7.0.0-alpha08"
+    const val androidGradlePlugin = "com.android.tools.build:gradle:7.0.0-alpha14"
 
     object Accompanist {
         private const val version = "0.6.0"
