@@ -14,14 +14,14 @@ data class FootballMatch(
     @field:Json(name= "start_time") val start_time: String?,
     @field:Json(name= "result") val result: List<String>,
     @field:Json(name= "date") val date: String?,
-    @field:Json(name= "date") val tournament_type: String?,
+    @field:Json(name= "tournament_type") val tournament_type: String?,
     @field:Json(name= "visitant_team") val visitant_team: FootballTeam?,
     @field:Json(name= "home_team") val home_team: FootballTeam?,
     @field:Json(name= "tournament_name") val tournament_name: FootballTournament?,
     @field:Json(name= "event_outcome_type") val event_outcome_type: String?,
-    @field:Json(name= "event_outcome_type") val stadium: FootballStadium?,
+    @field:Json(name= "stadium") val stadium: FootballStadium?,
     @field:Json(name= "minutes_elapsed") val minutes_elapsed: Int?,
-    @field:Json(name= "minutes_elevent_status_noteapsed") val event_status_note: String?,
+    @field:Json(name= "event_status_note") val event_status_note: String?,
     @field:Json(name= "event_actions") val event_actions: List<FootballEventAction>?,
 )
 

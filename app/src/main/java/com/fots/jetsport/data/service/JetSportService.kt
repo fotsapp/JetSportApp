@@ -13,6 +13,6 @@ interface JetSportService{
 
     @GET(Endpoints.FOOTBALL_LIVE)
     suspend fun getFootballLiveScores():
-            Response<List<FootballMatch>>
+            List<FootballMatch>
 
 }

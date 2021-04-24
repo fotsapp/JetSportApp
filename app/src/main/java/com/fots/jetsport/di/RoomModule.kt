@@ -33,13 +33,13 @@ object RoomModule {
 
     @Provides
     @Singleton
-    fun providesDeezerDatabase(application: Application)
+    fun providesJetSportDatabase(application: Application)
             = Room.databaseBuilder(application, JetSportDatabase::class.java, BuildConfig.DatabaseName)
         .fallbackToDestructiveMigration()
         .build()
 
     @Provides
     @Singleton
-    fun providesDeezerDao(deezerDatabase: JetSportDatabase)
-            = deezerDatabase.jetSportDao()
+    fun providesJetSportDao(jetSportrDatabase: JetSportDatabase)
+            = jetSportrDatabase.jetSportDao()
 }
