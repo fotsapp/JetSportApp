@@ -22,7 +22,7 @@ task clean(type: Delete) {
 }
 
 //task detektDeezer(type: io.gitlab.arturbosch.detekt.Detekt){
-//    description = "Run on Deezer Detekt"
+//    description = "Run on JetSport Detekt"
 //    buildUponDefaultConfig = true
 //    autoCorrect = true
 //    parallel = true
