@@ -5,7 +5,7 @@ package com.fots.jetsport.data
  * @date: 24/04/2021
  */
 
-sealed class Result<out R> {
+sealed class Result<out T> {
 
     data class Success<out T>(val data: T) : Result<T>()
     object Loading: Result<Nothing>()
@@ -19,4 +19,11 @@ sealed class Result<out R> {
         }
     }
 
+    fun onSuccess(handler: (T) -> Unit): Result<T> = this.also {
+        if (this is Success) handler(data)
+    }
+
+    fun onError(handler: (t: Throwable) -> Unit): Result<T> = this.also {
+        if (this is Error) handler(throwable)
+    }
 }

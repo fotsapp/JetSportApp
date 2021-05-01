@@ -2,14 +2,10 @@ package com.fots.jetsport.data.local
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
-import androidx.room.TypeConverters
-import com.fots.jetsport.data.local.entities.FootballMatchEntity
 import com.fots.jetsport.data.remote.FootballStadium
 import com.fots.jetsport.data.remote.FootballTeam
 import com.fots.jetsport.data.remote.FootballTournament
-import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
 import javax.inject.Inject
 
 /**
@@ -22,91 +18,53 @@ class JetSportConverter @Inject constructor(
     private val moshi: Moshi
 ) {
 
-    // FootballMatchEntity
-    @TypeConverter
-    fun fromStringToFootballMatchEntity(value: String): FootballMatchEntity?
-        = Types.newParameterizedType(String::class.java, FootballMatchEntity::class.java)
-        ?.let { type ->
-            moshi.adapter<FootballMatchEntity>(type)
-                .fromJson(value)
-        }
-
-    @TypeConverter
-    fun fromFootballMatchEntityToString(value: FootballMatchEntity): String
-        =  Types.newParameterizedType(FootballMatchEntity::class.java, String::class.java)
-        ?.let { type ->
-            moshi.adapter<String>(type)
-                .fromJsonValue(value)
-        }.orEmpty()
-
-
     // FootballTeam
     @TypeConverter
-    fun fromStringToFootballTeam(value: String): FootballTeam?
-            = Types.newParameterizedType(String::class.java, FootballTeam::class.java)
-        ?.let { type ->
-            moshi.adapter<FootballTeam>(type)
-                .fromJson(value)
-        }
+    fun fromStringToFootballTeam(value: String): FootballTeam? {
+        return moshi.adapter(FootballTeam::class.java).fromJson(value)
+    }
 
     @TypeConverter
-    fun fromFootballTeamToString(value: FootballTeam): String
-            =  Types.newParameterizedType(FootballTeam::class.java, String::class.java)
-        ?.let { type ->
-            moshi.adapter<String>(type)
-                .fromJsonValue(value)
-        }.orEmpty()
+    fun fromFootballTeamToString(value: FootballTeam): String? {
+        return moshi.adapter(FootballTeam::class.java).toJson(value)
+    }
 
     // FootballTournament
     @TypeConverter
-    fun fromStringToFootballTournament(value: String): FootballTournament?
-            = Types.newParameterizedType(String::class.java, FootballTournament::class.java)
-        ?.let { type ->
-            moshi.adapter<FootballTournament>(type)
-                .fromJson(value)
-        }
+    fun fromStringToFootballTournament(value: String): FootballTournament? {
+        return moshi.adapter(FootballTournament::class.java).fromJson(value)
+    }
 
     @TypeConverter
-    fun fromFootballTournamentToString(value: FootballTournament): String
-            =  Types.newParameterizedType(FootballTournament::class.java, String::class.java)
-        ?.let { type ->
-            moshi.adapter<String>(type)
-                .fromJsonValue(value)
-        }.orEmpty()
+    fun fromFootballTournamentToString(value: FootballTournament): String? {
+        return moshi.adapter(FootballTournament::class.java).toJson(value)
+    }
 
 
     // FootballStadium
     @TypeConverter
-    fun fromStringToFootballStadium(value: String): FootballStadium?
-            = Types.newParameterizedType(String::class.java, FootballStadium::class.java)
-        ?.let { type ->
-            moshi.adapter<FootballStadium>(type)
-                .fromJson(value)
-        }
+    fun fromStringToFootballStadium(value: String): FootballStadium? {
+        return moshi.adapter(FootballStadium::class.java).fromJson(value)
+    }
 
     @TypeConverter
-    fun fromFootballStadiumToString(value: FootballStadium): String
-            =  Types.newParameterizedType(FootballStadium::class.java, String::class.java)
-        ?.let { type ->
-            moshi.adapter<String>(type)
-                .fromJsonValue(value)
-        }.orEmpty()
+    fun fromFootballStadiumToString(value: FootballStadium): String? {
+        return moshi.adapter(FootballStadium::class.java).toJson(value)
+    }
 
     // Result
     @TypeConverter
-    fun fromStringToResult(value: String): List<String>?
-            = Types.newParameterizedType(String::class.java, Array<String>::class.java)
-        ?.let { type ->
-            moshi.adapter<List<String>>(type)
-                .fromJson(value)
-        }
+    fun fromStringToResult(value: String): List<String> {
+        return value.split(",").toMutableList()
+    }
 
     @TypeConverter
-    fun fromResultToString(value: List<String>): String
-            =  Types.newParameterizedType(Array<String>::class.java, String::class.java)
-        ?.let { type ->
-            moshi.adapter<String>(type)
-                .fromJsonValue(value)
-        }.orEmpty()
+    fun fromResultToString(value: List<String>): String {
+        var result = ""
+        value.forEach { element ->
+            result += "$element,"
+        }
+        return result.removeSuffix(",")
+    }
 
 }

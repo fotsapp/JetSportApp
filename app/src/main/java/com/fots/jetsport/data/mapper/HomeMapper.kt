@@ -19,7 +19,7 @@ class HomeMapper @Inject constructor():
             event_name = input.event_name,
             season = input.season,
             start_time = input.start_time,
-            result = input.result,
+            result = input.result.orEmpty(),
             date = input.date,
             tournament_type = input.tournament_type ,
             tournament_name = input.tournament_name,
@@ -35,19 +35,20 @@ class HomeMapper @Inject constructor():
 
     override suspend fun invoke(input: FootballMatch, isEntity: Boolean): FootballMatchEntity {
         return FootballMatchEntity(
+            entityId = input.match_id!!.toInt(),
             match_id = input.match_id.orEmpty(),
             event_name = input.event_name.orEmpty(),
             season = input.season.orEmpty(),
             start_time = input.start_time.orEmpty(),
-            result = input.result,
+            result = input.result.orEmpty(),
             date = input.date.orEmpty(),
             tournament_type = input.tournament_type.orEmpty(),
             tournament_name = input.tournament_name
                 ?: FootballTournament("","",""),
             home_team = input.home_team
-                ?: FootballTeam("", FootballStats("",""),"","", emptyList()),
+                ?: FootballTeam("", FootballStats("",""),"",""),
             visitant_team = input.visitant_team
-                ?: FootballTeam("", FootballStats("",""),"","", emptyList()),
+                ?: FootballTeam("", FootballStats("",""),"",""),
             event_outcome_type = input.event_outcome_type.orEmpty(),
             stadium = input.stadium ?: FootballStadium(""),
             minutes_elapsed = input.minutes_elapsed.orZero(),
@@ -55,3 +56,4 @@ class HomeMapper @Inject constructor():
     }
 
 }
+

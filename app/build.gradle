@@ -55,6 +55,11 @@ android {
         shaders false
     }
 
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    
     composeOptions {
         kotlinCompilerExtensionVersion Libs.AndroidX.Compose.version
     }
@@ -75,6 +80,7 @@ dependencies {
     implementation Libs.Kotlin.Coroutines.android
 
     implementation Libs.Accompanist.coil
+    implementation Libs.Accompanist.glide
     implementation Libs.AndroidX.Activity.activityCompose
     implementation Libs.AndroidX.Compose.runtime
     implementation Libs.AndroidX.Compose.runtimeLivedata
@@ -96,6 +102,8 @@ dependencies {
     implementation Libs.AndroidX.Lifecycle.viewModelKtx
     implementation Libs.Hilt.android
     implementation Libs.Hilt.viewmodel
+    implementation Libs.Hilt.navigation
+
     kapt Libs.Hilt.android_compiler
     kapt Libs.Hilt.compiler
 

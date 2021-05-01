@@ -12,11 +12,11 @@ data class FootballMatch(
     @field:Json(name= "event_name") val event_name: String?,
     @field:Json(name= "season") val season: String?,
     @field:Json(name= "start_time") val start_time: String?,
-    @field:Json(name= "result") val result: List<String>,
+    @field:Json(name= "result") val result: List<String>?,
     @field:Json(name= "date") val date: String?,
     @field:Json(name= "tournament_type") val tournament_type: String?,
-    @field:Json(name= "visitant_team") val visitant_team: FootballTeam?,
-    @field:Json(name= "home_team") val home_team: FootballTeam?,
+    @Json(name= "visitant_team") val visitant_team: FootballTeam?,
+    @Json(name= "home_team") val home_team: FootballTeam?,
     @field:Json(name= "tournament_name") val tournament_name: FootballTournament?,
     @field:Json(name= "event_outcome_type") val event_outcome_type: String?,
     @field:Json(name= "stadium") val stadium: FootballStadium?,
@@ -26,11 +26,11 @@ data class FootballMatch(
 )
 
 data class FootballTeam(
-    @field:Json(name= "image") val image: String?,
-    @field:Json(name= "stats") val stats: FootballStats?,
-    @field:Json(name= "full") val full: String?,
-    @field:Json(name= "first") val first: String?,
-    @field:Json(name= "assitant") val assitant: List<String>?
+    @Json(name= "image") val image: String?,
+    @Json(name= "stats") val stats: FootballStats?,
+    @Json(name= "full") val full: String?,
+    @Json(name= "first") val first: String?,
+  //  @field:Json(name= "assitant") val assitant: List<String>?
 )
 
 data class FootballStats(
@@ -39,9 +39,9 @@ data class FootballStats(
 )
 
 data class FootballTournament(
-    @field:Json(name= "code-name") val codeName: String?,
-    @field:Json(name= "code-key") val codeKey: String?,
-    @field:Json(name= "code-type") val codeType: String?
+    @Json(name= "code-name") val codeName: String?,
+    @Json(name= "code-key") val codeKey: String?,
+    @Json(name= "code-type") val codeType: String?
 )
 
 data class FootballStadium(

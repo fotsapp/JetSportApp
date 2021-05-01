@@ -6,6 +6,7 @@ import com.fots.jetsport.BuildConfig
 import com.fots.jetsport.data.local.JetSportDatabase
 import com.fots.jetsport.data.local.JetSportConverter
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,7 +25,9 @@ object RoomModule {
     @Provides
     @Singleton
     fun provideMoshi(): Moshi
-            = Moshi.Builder().build()
+            = Moshi.Builder()
+        .add(KotlinJsonAdapterFactory())
+        .build()
 
     @Provides
     @Singleton
@@ -33,13 +36,14 @@ object RoomModule {
 
     @Provides
     @Singleton
-    fun providesJetSportDatabase(application: Application)
+    fun providesJetSportDatabase(application: Application,jetSportConverter : JetSportConverter)
             = Room.databaseBuilder(application, JetSportDatabase::class.java, BuildConfig.DatabaseName)
+        .addTypeConverter(jetSportConverter)
         .fallbackToDestructiveMigration()
         .build()
 
     @Provides
     @Singleton
-    fun providesJetSportDao(jetSportrDatabase: JetSportDatabase)
-            = jetSportrDatabase.jetSportDao()
+    fun providesJetSportDao(jetSportDatabase: JetSportDatabase)
+            = jetSportDatabase.jetSportDao()
 }
