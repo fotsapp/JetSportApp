@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Jetsport</string>
+    <string name="screen_home">Home</string>
+    <string name="loading">Loading…</string>
+    <string name="vs">vs</string>
+
 </resources>

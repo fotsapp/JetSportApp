@@ -17,16 +17,16 @@ import kotlinx.coroutines.flow.flowOn
  * @author: fevziomurtekin
  * @date: 24/04/2021
  */
-interface HomeUseCase {
+interface HomeRepository {
     suspend fun getLiveFootballMatches(): Flow<Result<List<FootballMatch>>>
 }
 
-class HomeUseCaseImpl @Inject constructor(
+class HomeRepositoryImpl @Inject constructor(
     private val service: JetSportService,
     private val local: JetSportDao,
     private val mapper: HomeMapper,
     @IODispatcher private val dispatcher: CoroutineDispatcher
-): HomeUseCase {
+) : HomeRepository {
     override suspend fun getLiveFootballMatches(): Flow<Result<List<FootballMatch>>> = flow {
         emit(Result.Loading)
         emit(Result.Success(local.getAllFootballMatches().map { mapper.invoke(it) }))
@@ -35,6 +35,7 @@ class HomeUseCaseImpl @Inject constructor(
             local.insertMatches(response.map { mapper.invoke(it,true) })
         }
     }.catch { error ->
+        error.printStackTrace()
         emit(Result.Error(error))
     }.flowOn(dispatcher)
 }

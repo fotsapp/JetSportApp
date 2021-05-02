@@ -14,7 +14,7 @@ import com.fots.jetsport.data.local.entities.FootballMatchEntity
 @Dao
 interface JetSportDao {
 
-    @Query("SELECT * FROM FootballMatchEntity")
+    @Query("SELECT * FROM footballMatchEntity")
     suspend fun getAllFootballMatches(): List<FootballMatchEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -15,7 +15,7 @@ import javax.inject.Qualifier
  */
 
 @Module
-@InstallIn(ViewModelComponent::class)
+@InstallIn(SingletonComponent::class)
 object CoroutineDispatcherModule {
 
     @DefaultDispatcher
